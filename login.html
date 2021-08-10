@@ -1,0 +1,51 @@
+<!--https://www.sourcecodester.com/tutorials/javascript/9161/validate-login-page-using-javascript.html-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Form Validation</title>
+<script type="text/javascript">
+function validateForm()
+{
+	var user=document.login.username.value;
+	var user=user.trim();
+	var pass=document.login.password.value;
+ 
+	if(user == '')
+	{
+		document.getElementById('error').innerHTML="Please Enter Username";
+		return false;
+	}
+ 
+	if(pass == '')
+	{
+		document.getElementById('error').innerHTML="Please Enter Password";
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+<!--Access login.php for login-->
+<form id="login" name="login" method="post" action="login.php" onsubmit="return validateForm()">
+	<table width="510" border="0" align="center">
+		<tr>
+			<td>Login Form</td>
+			<td><div id="error"></div></td>
+		</tr>
+		<tr>
+			<td>Username:</td>
+			<td><input type="text" name="username" id="username" /></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="password" id="password" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" name="button" id="button" value="Submit" /></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

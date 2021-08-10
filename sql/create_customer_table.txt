@@ -1,0 +1,10 @@
+CREATE TABLE `customer` (
+ `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ `fname` varchar(50) NULL,
+ `lname` varchar(50) NULL,
+ `email` varchar(50) NULL,
+ `password` varchar(50) NOT NULL,
+ `salt` CHAR(128) NOT NULL,
+ `postcode` varchar(8) NOT NULL,
+ `budget` INT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
