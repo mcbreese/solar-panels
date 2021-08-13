@@ -1,4 +1,15 @@
 <?php
+$servername='localhost';
+$username='root';
+$password='';
+$dbname = "solar";
+# mysqli_connect opens connection to sql server, stored in variable here
+$conn=mysqli_connect($servername,$username,$password,"$dbname");
+# If connection is blank then error
+if(!$conn){
+      die('Could not Connect MySql Server:' .mysql_error());
+    }
+echo "response PHP";
 //retrieve our data from POST
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
@@ -26,17 +37,15 @@ function createSalt()
  
 $salt = createSalt();
 $password = hash('sha256', $salt . $hash);
-$conn = mysql_connect('localhost', 'root', '');
-mysql_select_db('solar', $conn);
+//$conn = mysql_connect('localhost', 'root', '');
+//mysql_select_db('solar', $conn);
  
 //sanitize username
-$username = mysql_real_escape_string($username);
+//$username = mysql_real_escape_string($username);
  
 $query = "INSERT INTO customer ( fname, lname, password, email, salt, postcode, budget)
         VALUES ( '$fname', '$lname', '$password', '$email', '$salt', '$postcode', '$budget');";
-mysql_query($query);
- 
-mysql_close();
- 
-echo "response PHP";
+mysqli_query($conn, $query);
+mysqli_close($conn);
+
 ?>
