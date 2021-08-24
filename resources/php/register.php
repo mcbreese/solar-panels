@@ -26,7 +26,7 @@ if($password1 != $password2)
 //if(strlen($username) > 30)
   //  header('Location: registration.html');
 
-$hash = hash('sha256', $password1);
+//$hash = hash('sha256', $password1);
 
 // Hash the function using salt
 function createSalt()
@@ -36,7 +36,8 @@ function createSalt()
 }
  
 $salt = createSalt();
-$password = hash('sha256', $salt . $hash);
+//$password = hash('sha256', $salt . $hash);
+$password = hash('sha256', $salt . $password1);
 
 // If the below select statement returns a value then the customer exists and we don't want to add it
 $sql="SELECT email from customer WHERE email='$email';";
