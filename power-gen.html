@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+
+<html xmlns=http://www.w3.org/1999/xhtml>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js\power-gen.js"></script>
+    <link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
+    <title>Power Generation</title>
+
+  </head>
+
+
+
+  <body class="">
+    <div class="flex-row " style="height:100%;">
+    <div class="header help">
+        <nav>
+<h2>Main <br/>Components</h2>
+      <div class="flex-col">
+
+<button>
+<a href="power-gen.html">Power Generation</a>
+</button>
+
+
+<button>
+    <a href="battery-power.html">Battery Power</a>
+</button>
+<button>
+    <a href="telemetry.html">Telemetry</a>
+</button>
+<button style="margin-top:10px;">Next</button>
+      </div>
+        </nav>
+      
+    </div>
+    <div class="main-body help">
+    <form name=" " onsubmit="return false">
+
+      <table width="510" border="0">
+
+        <tr>
+
+          <td colspan="2">
+            <p><strong>Power Generation</strong></p>
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>Customer No:</td>
+
+          <td><input type="number" placeholder="0000" name="Customer No" id="customer" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Roof Angle<span>&#176;</span>: </td>
+
+          <td><input type="number" placeholder="0" name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
+
+        </tr>
+
+        <tr>
+
+          <td>Sun Angle<span>&#176;</span>:</td>
+
+          <td><input type="number" placeholder="0" name="Sun Angle" min="0" max="180" id="sunAngle" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Choose a solar panel type:</td>
+
+          <td>
+            <label for="panelType"></label>
+            <select name="panelType" id="panelType">
+              <option value="0.15">Monocrystalline</option>
+              <option value="0.12">Polycrystalline</option>
+              <option value="0.6">Amorphous Silicon</option>
+            </select>
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>Temperature<span>&#176;</span>C:</td>
+
+          <td><input type="number" placeholder="25" name="Temperature" id="temperature" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Area <span>&#13217;</span>:</td>
+
+          <td><input type="number" placeholder="0" name="Area" id="area" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Cost (£/<span>&#13217;</span>):</td>
+
+          <td><input type="number" placeholder="&pound;0" name="Cost" id="cost" /></td>
+
+        </tr>
+
+        <tr>
+
+
+
+          <td><input type="submit" value="Submit" id="submit" /></td>
+
+        </tr>
+
+      </table>
+
+    </form>
+    <div class="flex-row text-left">
+        <div id="summerOutput" style="margin-right:5px;"></div>
+        <br>
+        <div id="summerOutputBreakdown" style="margin-left:5px;"></div>
+    </div>
+    <br>
+    <div class="flex-row text-left">
+    <div id="winterOutput" style="margin-right:5px;"></div>
+    <br>
+    <div id="winterOutputBreakdown" style="margin-left:5px;"></div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <br>
+
+  </body>
+
+</html>

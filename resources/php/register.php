@@ -19,14 +19,6 @@ $email = $_POST['email'];
 $postcode = $_POST['postcode'];
 $budget = $_POST['budget'];
 
-// Check pword 1 and 2 match
-if($password1 != $password2)
-    header('Location: registration.html');
- 
-//if(strlen($username) > 30)
-  //  header('Location: registration.html');
-
-//$hash = hash('sha256', $password1);
 
 // Hash the function using salt
 function createSalt()
