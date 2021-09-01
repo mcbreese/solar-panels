@@ -37,8 +37,8 @@ $currentCustomer=$conn->query($sql)->fetch_assoc();
 echo $currentCustomer;
 if($currentCustomer!=""){
   echo "This email address already exists in the system!";
-}
-else{
+} 
+else {
   $sql = "INSERT INTO customer ( fname, lname, password, email, salt, postcode, budget)
           VALUES ( '$fname', '$lname', '$password', '$email', '$salt', '$postcode', '$budget');";
   # insert and echo Y to feedback to JS
@@ -50,4 +50,5 @@ else{
   };
 }
 mysqli_close($conn);
+
 ?>
