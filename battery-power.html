@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+
+<html xmlns=http://www.w3.org/1999/xhtml>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--Required for jQuery-->
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <!--Required for Google Charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js\battery-power.js"></script>
+    <link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
+    <title>Battery Power</title>
+  </head>
+
+
+
+  <body class="">
+    <div class="flex-row " style="height:100%;">
+    <div class="header help">
+        <nav>
+<h2>Main <br/>Components</h2>
+      <div class="flex-col">
+
+<button disabled>
+<a href="power-gen.html">Power Generation</a>
+</button>
+
+
+<button>
+    <a href="battery-power.html">Battery Power</a>
+</button>
+<button>
+    <a href="telemetry.html">Telemetry</a>
+</button>
+<button style="margin-top:10px;"><a href="telemetry.html">Next</a></button>
+      </div>
+        </nav>
+      
+    </div>
+    <div class="main-body">
+      <div class="flex-row">
+    <form name=" " onsubmit="return false">
+
+      <table width="510" border="0">
+
+        <tr>
+
+          <td colspan="2">
+            <p><strong>Battery Power</strong></p>
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>Power Consumption (W)</td>
+
+          <td><input type="number" value="300" name="power-consumption" id="power-consumption" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Location (Postcode): </td>
+
+          <td><input type="text" value="BS2" name="location"  id="location" /> </td>
+
+        </tr>
+
+        <tr>
+
+          <td>Battery Efficiency (%):</td>
+
+          <td><input type="number" value="85" name="battery-efficiency" min="0" max="100" id="battery-efficiency" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Power Distribution Module Efficiency (%):</td>
+
+          <td><input type="number" value="90" name="pdm-efficiency" min="0" max="100" id="pdm-efficiency" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Battery Capacity (A Hours):</td>
+
+          <td><input type="number" value="250" name="battery-capacity" id="battery-capacity" /></td>
+
+        </tr>
+
+        <tr>
+
+          <td>Battery Voltage (V):</td>
+
+          <td><input type="number" value="12" name="battery-voltage" id="battery-voltage" /></td>
+
+        </tr>
+
+        <tr>
+
+
+
+          <td><input type="submit" value="Submit" id="submit" /></td>
+
+        </tr>
+
+      </table>
+
+    </form>
+    <div>
+        
+      <h2>Breakdown:</h2>
+      <p>To calculate the total power output by the battery charge module (W):</p>
+      <p>efficiency x sun power (1000) x roof area x battery efficiency x sin(roof angle + sun angle)</p>
+      <p>To calculate the constant base load of power on the house (W):</p>
+      <p>power consumption + ((1- power distribution module efficiency) x power consumption)</p>
+      <p>To calculate the power balance of the house (W):</p>
+      <p>power output of charge module - power consumption of house</p>
+      <p>To calculate the instantaneous charge or discharge current (A):</p>
+      <p>power balance / battery voltage</p>
+      <p>To calculate the battery charge at each hour</p>
+      <p>battery charge at the hour + charge or discharge current</p>
+      <p>To calculate the % discharge of the battery:</p>
+      <p>(1 - (battery charge / battery capacity) x 100</p>
+    
+    </div>
+    </div>
+    <div class="flex-row text-left">
+        <div id="summerOutput" style="margin-right:5px;"></div>
+        <div id="winterOutput" style="margin-left:5px;"></div>
+    </div>
+    
+        <div id="chart-div">
+        <p>Click to view the battery discharge chart:</p>
+        <button>View</button>
+        <div class="hidden">
+            <!--Output the chart display-->
+            <div id="curve_chart" style="width: 900px; height: 500px"></div>
+        </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+  </body>
+
+</html>
