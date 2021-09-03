@@ -1,17 +1,27 @@
 $(document).ready(function(){
+
+  // Test the session from the previous page power generation, if successful we will have the data we need
+  var dataArr=checkSession();
+
   $("#submit").click(() => {
     // Followed class diagram and top down and activity
     // Set all the variables which will be fulfilled by database or user input fields
 
     if (emptyFields()){
       // Database values required:
-      var area=10; // metre squared
-      var elevationAngle=25; // Degrees
+      var area=dataArr[0]; // metre squared
+      var elevationAngle=dataArr[1]; // Degrees
+      var efficiency =dataArr[2] // %
+
+      console.log("Roof area from database = " + area);
+      console.log("Elevation angle from database = " + elevationAngle);
+      console.log("Efficiency from database = " + efficiency);
+
+      // Will receive from API if we do not run out of development time
       var sunAngleSummer=[0,0,0,0,2,9,18,27,37,46,54,60,62,60,54,46,37,27,18,9,2,0,0,0];// Degrees, there will need to be an array for Winter
       var sunAngleWinter=[0,0,0,0,0,0,0,0,0,6,11,14,15,14,11,6,0,0,0,0,0,0,0,0];
-      var efficiency = 0.2
-      var power= 1000;
-      var area=10;
+
+      var power= 1000; // It always = 1000 according to the documentation
 
       // User Input Fields:
       var batteryEfficiency=parseInt($("#battery-efficiency").val()); // %
@@ -56,8 +66,31 @@ $(document).ready(function(){
     } else {
       alert("Required values are missing!");
     }
+    $("#submit").prop('disabled', true);
+    saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVoltage, summerArr, winterArr);
+    // Then we need to save into the database
   });
 });
+
+// Check the administrator session from the previous page to stay with the current customer details
+// If successful it will bring back the required fields from the power generation database
+function checkSession(){
+    var checkSession = $.ajax({
+    url: "resources/php/battery-power.php",
+    type: 'post',
+    data: {
+      data: 'data'
+    },
+    async: false
+  }).responseText;
+
+  if(checkSession=="error"){
+    alert ("The session from the previous page has been lost, please begin the power generation process again")
+  } else {
+    // Parse the data as JSON array as it returns as a string otherwise
+    return JSON.parse(checkSession);
+  }
+};
 
 function emptyFields(){
   if (!$("#battery-efficiency").val()){
@@ -218,4 +251,32 @@ function generateSummerWinterDepth(battCharge,totalCap){
   let discharge=(1-(battCharge/totalCap)) * 100;
   return discharge;
 };
+
+
+// Send data to PHP file to insert into battery power database
+function saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVoltage, summerArr, winterArr){
+  // AJAX insert
+  console.log("Inserting into Database");
+  var runInsert = $.ajax({
+    url: "resources/php/battery-powerInsert.php",
+    type: 'post',
+    data: {
+      watts: watts,
+      batteryEfficiency: batteryEfficiency,
+      pdmEfficiency: pdmEfficiency,
+      battCap: battCap,
+      battVoltage: battVoltage,
+      summerArr: summerArr,
+      winterArr: winterArr
+    },
+    async: false
+  }).responseText;
+  if(runInsert=="N"){
+    console.log("Error Inserting Query into Database!");
+    alert ("Error Inserting into Database, seek system administrator!");
+  }
+  else{
+    // Feedback to the people that it has worked?
+  }
+}
 

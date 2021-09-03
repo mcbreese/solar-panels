@@ -25,8 +25,15 @@ $configID=$configID["configID"];
 
 $sql = "INSERT INTO powergeneration (configID, employeeID, customerID, roofAngle, solarEfficiency, temperature, roofArea, panelCost, sunPower, elevationAngleSummer, elevationAngleWinter, panelPowerSummer, panelPowerWinter, installCost, powerCostSummer, powerCostWinter)
         VALUES ( '$configID', 1, '$id', '$roofAngle', '$efficiency', '$temperature', '$area','$cost',1000, '$elevationSunSummer','$elevationSunWinter', '$PPanelSummer','$PPanelWinter','$MTotal','$powerCostSummer','$powerCostWinter');";
-# insert and echo Y to feedback to JS
+
+# Values are now inserted into the database, start a session so the next page has the customer details
+session_start();
+$_SESSION["user_id"]=$id;
+$_SESSION["config_id"]=$configID;
+
+// Run the insert
 mysqli_query($conn, $sql);
 
+// Close the SQL conncetion
 mysqli_close($conn);
 ?>

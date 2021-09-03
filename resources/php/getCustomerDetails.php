@@ -13,9 +13,6 @@ if(@mysqli_num_rows($resultSet) > 0){
 
     $row = mysqli_fetch_assoc($resultSet);
     echo $row["postcode"];
-    session_start();
-    $_SESSION["user_id"]=$row["id"];
-
 } else {
     // The customer does not exist
     echo "N";

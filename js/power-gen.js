@@ -7,8 +7,7 @@ $(document).ready(function(){
       // Assign the postcode value to a variable for the API call
       var custPostcode = getCustomerPostCode($("#customer").val());
       custPostcode.trim;
-      console.log("The customer postcode is = " + custPostcode);
-      // If none of the fields are empty then continue with the calculations
+      // Test the page has all of the required information
       if (emptyFields()){
         // Assign the variables from the field
         console.log("Run the Power Generation Scripts")
@@ -129,7 +128,6 @@ if (season=='summer'){
 } else if (season=='winter'){
   ESunRoof=roofAngle+15;
 }
-console.log("ESunRoof now = " + ESunRoof);
 return ESunRoof
 }
 
@@ -140,14 +138,10 @@ if(temperature>=25){
   efficiency=coefficient(temperature, efficiency);
 }
 // Generates Power Output
-//ESunRoof= angleOfSun('SY2 5LY', season);
 ESunRoof=generateElevationAngleSunRoof(roofAngle,season);
 // Convert to degrees because default math.sin uses radian https://dirask.com/posts/JavaScript-Math-sin-in-degrees-Z1AwNp
 ESunRoof= (Math.PI / 180) * ESunRoof;
-console.log("sin(85) = " + Math.sin(ESunRoof));
 let PPanel = efficiency * power * area * Math.sin(ESunRoof);
-console.log("PPanel = " + efficiency + "*" + power + "*" + area + "*" + Math.sin(ESunRoof));
-console.log(season + " Power Output = " + PPanel)
 return PPanel;
 }
 
@@ -158,7 +152,6 @@ return area*cost;
 
 function generatePowerCost(power,totalCost){
 return (totalCost/power).toFixed(2);
-console.log("Cost of Power = "+ totalCost/power +"£/W");
 };
 
 function saveToDatabase(customer, roofAngle, efficiency, temperature, area, cost, elevationSunSummer, elevationSunWinter, PPanelSummer, PPanelWinter, MTotal, powerCostSummer, powerCostWinter){
@@ -184,7 +177,6 @@ function saveToDatabase(customer, roofAngle, efficiency, temperature, area, cost
     },
     async: false
   }).responseText;
-  console.log("Output is " + runInsert);
   if(runInsert=="N"){
     console.log("Error Inserting Query into Database!");
     alert ("Error Inserting into Database, seek system administrator!");
