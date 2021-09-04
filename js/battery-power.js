@@ -151,7 +151,6 @@ function chartArr(summerArr, winterArr, timeArr){
   for(i=0; i<24; i++){
     chartArr.push([timeArr[i],parseFloat(summerArr[i]), parseFloat(winterArr[i])]);
   }
-  console.log(chartArr);
   return chartArr;
 };
 

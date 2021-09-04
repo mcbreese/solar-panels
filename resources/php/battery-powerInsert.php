@@ -2,16 +2,20 @@
 // db.php includes our login credentials for the server
 include_once '..\db.php';
 
+session_start();
+
 //retrieve our data from POST
 $configID=$_SESSION["config_id"];
 $id=$_SESSION["user_id"];
 $watts = $_POST['watts'];
-$battEff = $_POST['batterEfficiency'];
+$battEff = $_POST['batteryEfficiency'];
 $pdmEff = $_POST['pdmEfficiency'];
 $battCap = $_POST['battCap'];
-$voltage = $_POST['batteryVoltage'];
+$voltage = $_POST['battVoltage'];
 $dischargeSummer = $_POST['summerArr'];
 $dischargeWinter = $_POST['winterArr'];
+
+echo $voltage;
 
 // Convert array into strings using serialize
 $dischargeSummer= serialize($dischargeSummer);
@@ -26,6 +30,8 @@ session_start();
 $_SESSION["user_id"]=$id;
 $_SESSION["config_id"]=$configID;
 */
+
+
 
 // Run the insert
 mysqli_query($conn, $sql);

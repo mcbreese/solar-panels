@@ -1,13 +1,63 @@
-<!--https://www.sourcecodester.com/tutorials/javascript/9161/validate-login-page-using-javascript.html-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+
+<html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--Required for jQuery-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript" type="module" src="js\customer-portal.js"></script>
+<!--Required for Google Charts-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="js\customer-portal.js"></script>
+<link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
 <title>Customer Portal</title>
 </head>
-<body>
-<h1>YOU HAVE LOGGED IN</h1>
+<body class="">
+    <!--Body of the page-->
+    <div class="flex-row " style="height:100%;">
+    <!--Nav bar-->
+    <div class="header help">
+        <nav>
+                <h2>SOLAR PANELS LTD</h2>
+                <h2>CUSTOMER PORTAL</h2>
+                <button id="sign-out">Sign Out</button>
+        </nav>
+      
+    </div>
+    <!--Main Body after the nav-->
+    <div class="main-body help">
+    <h1>SOLAR CONFIGURATIONS</h1>
+    <p>Change your budget here if required:</p>
+    <input type="number"><button>Submit</button>
+    <div class="flex-row help">
+        <!--All of the customers configured options will appear here-->
+    <div class="help" id="options-output"> 
+         <!--Left side of the page-->
+    </div>
+    <div class="help"> 
+         <!--Right side of the page-->
+    </div>      
+    </div>
+     <div class="flex-row help">
+    <div class="help"> 
+         <!--Left Bottom of the page-->
+         <h2>How we calculate:</h2>
+         <p>1. Power Generated = solar panel efficiency x power of the sun x roof area used x efficiency of the battery x sin(elevation angle of roof + sun)</p>
+         <p>2. Installation cost total= roof area used x price of the solar panel</p>
+         <p>3. Cost per watt = Installtion cost / power being generated</p>
+    </div>
+    <div class="help"> 
+         <!--Right bottom of the page-->
+         <p>Pick an option:</p>
+         <select style="display:block">
+            <option value=””>option1</option>
+            <option value=””>option2</option>
+            <option value=””>option3</option>
+        </select>
+        <button>Submit</button>
+    </div>      
+    </div>
+    </div>
+    </div>
+
 </body>
 </html>
