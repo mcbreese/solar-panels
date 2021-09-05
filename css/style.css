@@ -46,6 +46,13 @@ a:visited{
     border-color: grey;
     height:175vh;
 }
+#options-output{
+    width: 40%;
+}
+#charts{
+    width: 60%;
+    margin-left: 20px;
+}
 .main-body{
     width: 75%;
 }
@@ -53,6 +60,11 @@ a:visited{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+.flex-row-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 .flex-col{
     display: flex;
@@ -74,4 +86,13 @@ a:visited{
    bottom:0;
    width:100%;
    margin-bottom: 0;
+   margin-left:20px;
+}
+#reg-form{
+    margin:auto;
+    width: 50%;
+    text-align:center;
+}
+#reg-table{
+    margin: auto;
 }

@@ -244,8 +244,8 @@ function loadBarChart(barArr){
 
       var options = {
         title: "£/W of Solar Panel Option",
-        width: 600,
-        height: 400,
+        width: 900,
+        height: 600,
         bar: {groupWidth: "95%"},
         legend: { position: "none" },
       };

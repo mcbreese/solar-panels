@@ -13,13 +13,13 @@
 </head>
 <body class="">
     <!--Body of the page-->
-    <div class="flex-row " style="height:175vh;">
+    <div class="flex-row " style="height:125vh;">
     <!--Nav bar-->
-    <div class="header help">
+    <div class="header"  id="left-side" style="height:140vh;">
         <nav>
                 <h2>SOLAR PANELS LTD</h2>
-                <h2>CUSTOMER PORTAL</h2>
-                <button id="sign-out">Sign Out</button>
+                <h2 style="margin-top:45vh;">CUSTOMER PORTAL</h2>
+                <button style="margin-top:45vh; color:red;" id="sign-out">Sign Out</button>
         </nav>
       
     </div>
@@ -37,14 +37,14 @@
     <div class="" id="options-output"> 
          <!--Left side of the page-->
     </div>
-    <div>  
+    <div class= "" id="charts">  
         <!--Right side of the page-->
         <h3>Options and costs as configured by Solar Panels Ltd:</h3>
-        <div id="curve_chart" style="width: 500px; height: 500px"></div>
-        <div id="barchart_values" style="width: 500px; height: 300px;"></div>
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+        <div class =""id="barchart_values" style="width: 900px; height: 500px;"></div>
     </div>
     </div>
-     <div class="flex-row footer">
+     <div class="flex-row-left footer">
     <div class=" "> 
          <!--Left Bottom of the page-->
          <h2>How we calculate:</h2>
@@ -52,14 +52,14 @@
          <p>2. Installation cost total= roof area used x price of the solar panel</p>
          <p>3. Cost per watt = Installtion cost / power being generated</p>
     </div>
-    <div class=""> 
+    <div style="margin-left: 20px;"> 
          <!--Right bottom of the page-->
-         <p>Pick an option:</p>
+         <h2><strong>Pick an option:</strong></p>
          <select style="display:block">
             <option value=””>Option 1</option>
             <option value=””>Option 2</option>
         </select>
-        <button>Submit</button>
+        <button class="navbar">Submit</button>
     </div>    
     </div>
 
