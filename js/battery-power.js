@@ -47,20 +47,20 @@ $(document).ready(function(){
       // Find if at any point the battery becomes more than 75% discharged
       var summerOutput=find75Discharge(summerArr);
       var winterOutput=find75Discharge(winterArr);
-      var summerOutputHTML="Summer Solstice <br/> On the summer solstice, the battery would discharge over 75% at " + summerOutput;
-      var winterOutputHTML="Winter Solstice <br/> On the winter solstice, the battery will discharge over 75% at " + winterOutput;
+      var summerOutputHTML="<h2>Output:</h2> Summer Solstice <br/> On the summer solstice, the battery would discharge over 75% at " + summerOutput;
+      var winterOutputHTML="<h2 style='color:white'>.</h2><p style='text-decoration:underline'>Winter Solstice</p><br/> On the winter solstice, the battery will discharge over 75% at " + winterOutput;
       // If summer output has a battery discharge of over 75% then
       if(summerOutput[0]){
         $("#summerOutput").html(summerOutputHTML);
       }
       else {
-        $("#summerOutput").html("Summer Solstice <br/> The battery will not discharge more than 75% on the summer solstice!");
+        $("#summerOutput").html("<h2>Output:</h2><p style='text-decoration:underline'>Summer Solstice</p> <br/> The battery will not discharge more than 75% on the summer solstice!");
       }
       if(winterOutput[0]){
         $("#winterOutput").html(winterOutputHTML);
       } 
       else {
-        $("#winterOutput").html("Winter Solstice <br/> The battery will not discharge more than 75% on the winter solstice!");
+        $("#winterOutput").html("<h2>Output:</h2><p style='text-decoration:underline'>Winter Solstice</p> <br/> The battery will not discharge more than 75% on the winter solstice!");
       };
 
     } else {

@@ -14,38 +14,39 @@
 
 
   <body class="">
-    <div class="flex-row " style="height:100%;">
-    <div class="header help">
-        <nav>
+    <div class="flex-row " style="height:175vh;">
+    <div class="header" id="left-side">
+        <nav class="">
 <h2>Main <br/>Components</h2>
-      <div class="flex-col">
+<div class="flex-col nav-buttons">
 
-<button>
+<button class="navbar highlighted">
 <a href="power-gen.html">Power Generation</a>
 </button>
 
 
-<button>
-    <a href="battery-power.html">Battery Power</a>
+<button disabled class="navbar ">
+    <a style="color:black" href="battery-power.html">Battery Power</a>
 </button>
-<button>
-    <a href="telemetry.html">Telemetry</a>
-</button>
-<button style="margin-top:10px;"><a href="battery-power.html">Next</a></button>
+<button disabled class="navbar">
+    <a style="color:black" href="telemetry.html">Telemetry</a>
+</button class="navbar">
+<button class="navbar highlighted" style="margin-top:10px;"><a href="battery-power.html">Next</a></button>
       </div>
         </nav>
       
     </div>
-    <div class="main-body help">
+    <div class="main-body">
       <div class="flex-row">
+        
     <form name=" " onsubmit="return false">
-
+<br>
       <table width="510" border="0">
 
         <tr>
 
           <td colspan="2">
-            <p><strong>Power Generation</strong></p>
+            <h2><strong>Power Generation</strong></h2>
           </td>
 
         </tr>
@@ -54,7 +55,7 @@
 
           <td>Customer No:</td>
 
-          <td><input type="number" placeholder="0000" name="Customer No" id="customer" /></td>
+          <td><input type="number" placeholder="0000" value="6" name="Customer No" id="customer" /></td>
 
         </tr>
 
@@ -62,7 +63,7 @@
 
           <td>Roof Angle<span>&#176;</span>: </td>
 
-          <td><input type="number" placeholder="0" name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
+          <td><input type="number" placeholder="0" value="25"  name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
 
         </tr>
 
@@ -70,7 +71,7 @@
 
           <td>Sun Angle<span>&#176;</span>:</td>
 
-          <td><input type="number" placeholder="0" name="Sun Angle" min="0" max="180" id="sunAngle" /></td>
+          <td><input type="number" placeholder="0" value="60" name="Sun Angle" min="0" max="180" id="sunAngle" /></td>
 
         </tr>
 
@@ -93,7 +94,7 @@
 
           <td>Temperature<span>&#176;</span>C:</td>
 
-          <td><input type="number" placeholder="25" name="Temperature" id="temperature" /></td>
+          <td><input type="number" placeholder="25" value="10"  name="Temperature" id="temperature" /></td>
 
         </tr>
 
@@ -101,7 +102,7 @@
 
           <td>Area <span>&#13217;</span>:</td>
 
-          <td><input type="number" placeholder="0" name="Area" id="area" /></td>
+          <td><input type="number" placeholder="0" value="10" name="Area" id="area" /></td>
 
         </tr>
 
@@ -109,7 +110,7 @@
 
           <td>Cost (£/<span>&#13217;</span>):</td>
 
-          <td><input type="number" placeholder="&pound;0" name="Cost" id="cost" /></td>
+          <td><input type="number" placeholder="&pound;0" value="120"  name="Cost" id="cost" /></td>
 
         </tr>
 
@@ -149,12 +150,6 @@
     </div>
     </div>
     </div>
-
-
-
-
-    <br>
-
   </body>
 
 </html>

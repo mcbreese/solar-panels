@@ -2,13 +2,15 @@ $(document).ready(function(){
   // Check the session is running and the customer profile is found
   checkSession();
   var customerID=checkSession();
-  console.log("customer ID = " + customerID);
+  var customerBudget=checkBudget(customerID);
   var customerData=returnData(customerID);
   // Check there is customer data returned from the database
   if(customerData){
+    // Display budget on the page
+    $("#current-budget").html("Your current budget is set as £" +customerBudget);
     // Wait a second before returning data
     setTimeout(function() {
-        addOptionsToPage(customerData);
+        addOptionsToPage(customerData, customerBudget);
         loadLineChart(linechartArr(customerData));
         loadBarChart(barChartArr(customerData));
     }, 500);
@@ -17,11 +19,54 @@ $(document).ready(function(){
   else {
     console.log("No Data Returned");
   };
+  // Run function update budget if clicked
+  $("#update-budget").click(() => {
+    updateBudget($("#new-budget").val(), customerID);
+  });
   // Run function sign-out if button is clicked
   $("#sign-out").click(() => {
     signOut();
   });
 });
+
+// Retrieve the customer budget from the database
+function checkBudget(customerID){
+// AJAX CALL
+  var budget = $.ajax({
+    url: "resources/php/getBudget.php",
+    type: 'post',
+    data: {
+      customerID: customerID
+    },
+    async: false
+  }).responseText;
+  // If the session is empty then redirect the customer to the login screen
+  if(!budget){
+     alert("Error no budget found for customer!");
+  } else {
+    console.log("Budget = " +budget);
+    return budget;
+  }
+};
+
+function updateBudget(newBudget, customerID){
+// AJAX CALL
+  var budget = $.ajax({
+    url: "resources/php/newBudget.php",
+    type: 'post',
+    data: {
+      newBudget: newBudget,
+      customerID: customerID
+    },
+    async: false
+  }).responseText;
+  if(budget){
+     // Refresh page if budget updated
+     window.location.reload();
+  } else {
+    alert("System Error");
+  }
+};
 
 function signOut(){
   var signOut = $.ajax({
@@ -123,12 +168,22 @@ function barChartArr(arr){
 };
 
 // Add the data back to the webpage
-function addOptionsToPage(customerData){
+function addOptionsToPage(customerData, budget){
   htmlOutput=""
 
   for(i=0; i<customerData.length; i++){
     let dischargeSummer=[];
     let dischargeWinter=[];
+    let budgetHTML;
+    budget=parseInt(budget);
+    console.log(customerData[i][2]);
+    if (customerData[i][2]>budget){
+      budgetHTML="<span style='color:red'>Option is out of budget!</span>"
+      // Option is out of budget
+    } else {
+       budgetHTML="<span style='color:green'>Option is within budget!</span>"
+      // Option is in budget
+    } ; 
     for(x=0;x<24;x++){
       // Make a new array and push the index as hours into it to display to the user
       if(customerData[i][5][x]>75){
@@ -140,9 +195,10 @@ function addOptionsToPage(customerData){
     }
     // This is the output to display ont he page
     output="<div class='options'><h3>Option " + (i+1) + "</h3>"
+    + budgetHTML
     + "<p>1. Total expected power generation on the solstices at noon: " +customerData[i][0] + "W (summer)\t " + customerData[i][1] + "W (winter)</p>"
-    + "<p>2. Total installation cost of this option : £" + customerData[0][2] + "</p>"
-    + "<p>3. Total cost per watt as this rate : £/W " + customerData[0][3] + "W (summer)\t " + customerData[i][4] + "W (winter)</p>"
+    + "<p>2. Total installation cost of this option : £" + customerData[i][2] + "</p>"
+    + "<p>3. Total cost per watt as this rate : £/W " + customerData[i][3] + "W (summer)\t " + customerData[i][4] + "W (winter)</p>"
     + "<p>4. Hours battery will be more than 75% discharged:</p><p style='text-indent:10px'>  Summer: "+ dischargeSummer+ " </p><p style='text-indent:10px'>  Winter: " + dischargeWinter + "</p>" 
     + "<p>5. Expected cost of telemetry on your system: </div>" ;
     htmlOutput+=output

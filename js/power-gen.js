@@ -26,18 +26,18 @@ $(document).ready(function(){
         let powerCostSummer = generatePowerCost(PPanelSummer, MTotal);
         let powerCostWinter = generatePowerCost(PPanelWinter, MTotal);
         // Prepare the HTML which will be output on the page
-        var htmlSummer="Summer Solstice <br/> " +
+        var htmlSummer="<h3>Output</h3><p style='text-decoration: underline;'>Summer Solstice</p> <br/> " +
                       " The installation cost of the panels = £" + MTotal + " <br/>" +
                       " Assumed maximum noon-time power generation = " + PPanelSummer + "W <br/>" +
                       " Cost of power generated at this time = £" + powerCostSummer + " per Watt";
-        var htmlSummerBreakdown="<br/> Installation cost = " + area + " x " + cost +"<br/>" +
+        var htmlSummerBreakdown="<h3>Breakdown</h3><p style='text-decoration: underline';>Summer Solstice</p></br>Installation cost = " + area + " x " + cost +"<br/>" +
                                 "Power Generation = " + efficiency + " x 1000 x" + area + " x " + "sin(" + elevationSunSummer + ") <br/>" +
                                 "Cost of power generated = " + MTotal + " <span>&#247;</span> " + PPanelSummer;
-        var htmlWinter="Winter Solstice <br/> " +
+        var htmlWinter="<p style='text-decoration: underline;'>Winter Solstice</p><br/>" +
                       " The installation cost of the panels = £" + MTotal + " <br/>" +
                       " Assumed maximum noon-time power generation = " + PPanelWinter + "W <br/>" +
                       " Cost of power generated at this time = £" + powerCostWinter + " per Watt";
-        var htmlWinterBreakdown="<br/> Installation cost = " + area + " x " + cost +"<br/>" +
+        var htmlWinterBreakdown="<p style='text-decoration: underline;'>Winter Solstice</p><br/> Installation cost = " + area + " x " + cost +"<br/>" +
                                 "Power Generation = " + efficiency + " x 1000 x" + area + " x " + "sin(" + elevationSunWinter + ") <br/>" +
                                 "Cost of power generated = " + MTotal + " <span>&#247;</span> " + PPanelWinter;
         $("#summerOutput").html(htmlSummer);
