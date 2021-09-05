@@ -33,3 +33,9 @@ nav{
 .text-left{
     text-align: left;
 }
+.options {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    border:solid;
+    border-color: aqua;
+}

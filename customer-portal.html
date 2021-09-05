@@ -28,14 +28,21 @@
     <h1>SOLAR CONFIGURATIONS</h1>
     <p>Change your budget here if required:</p>
     <input type="number"><button>Submit</button>
+    <p>Depending on your location, solar may save you between £80-£220 per year!</p>
     <div class="flex-row help">
         <!--All of the customers configured options will appear here-->
     <div class="help" id="options-output"> 
          <!--Left side of the page-->
     </div>
-    <div class="help"> 
-         <!--Right side of the page-->
-    </div>      
+    <div>  
+        <!--Right side of the page-->
+        <h3>Options and costs as configured by Solar Panels Ltd:</h3>
+        <div id="curve_chart" style="width: 500px; height: 500px"></div>
+        <div id="barchart_values" style="width: 500px; height: 300px;"></div>
+    </div>
+    </div>
+
+    </div>
     </div>
      <div class="flex-row help">
     <div class="help"> 
@@ -49,9 +56,8 @@
          <!--Right bottom of the page-->
          <p>Pick an option:</p>
          <select style="display:block">
-            <option value=””>option1</option>
-            <option value=””>option2</option>
-            <option value=””>option3</option>
+            <option value=””>Option 1</option>
+            <option value=””>Option 2</option>
         </select>
         <button>Submit</button>
     </div>      

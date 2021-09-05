@@ -2,19 +2,41 @@ $(document).ready(function(){
   // Check the session is running and the customer profile is found
   checkSession();
   var customerID=checkSession();
+  console.log("customer ID = " + customerID);
   var customerData=returnData(customerID);
   // Check there is customer data returned from the database
   if(customerData){
     // Wait a second before returning data
     setTimeout(function() {
         addOptionsToPage(customerData);
+        loadLineChart(linechartArr(customerData));
+        loadBarChart(barChartArr(customerData));
     }, 500);
    
   }
   else {
     console.log("No Data Returned");
   };
+  // Run function sign-out if button is clicked
+  $("#sign-out").click(() => {
+    signOut();
+  });
 });
+
+function signOut(){
+  var signOut = $.ajax({
+    url: "resources/php/sign-out.php",
+    type: 'post',
+    data: {
+      data: 'data'
+    },
+    async: false
+  }).responseText;
+  // If the session is empty then redirect the customer to the login screen
+  if(signOut){
+     window.location.href = "http://localhost/solar-panels/login.html";
+  }
+}
 
 // Check the session is active for the logged in customers
 function checkSession(){
@@ -59,7 +81,6 @@ function returnData(customerID) {
     console.log("============================================");
     console.log("Test Success - Customer details returned");
     console.log("============================================");
-    console.log(returnData);
     return returnData;
   };
 }
@@ -73,39 +94,106 @@ function returnData(customerID) {
   }
   return dischargeTimes;
 };
-  
+
+// Put the discharge rates into an array which the google chart will be able to read
+function linechartArr(arr){
+  // Connfigure the headings of the chart
+  let headingsArr=[['Time']];
+  for(i=0; i<arr.length; i++){
+    headingsArr[0].push("Opt " + [i+1] + " Summer");
+    headingsArr[0].push("Opt " + [i+1] + " Winter");
+
+  };
+  // Failed to make this work automatically for n options so manually coded 2 options
+  for(x=0; x<24; x++){
+    headingsArr.push([[x]+":00",parseFloat(arr[0][5][x]), parseFloat(arr[0][6][x]),parseFloat(arr[1][5][x]), parseFloat(arr[1][6][x])]);
+  }
+  return headingsArr;
+};
+
+// Put the costs per watt into an array which the google chart will be able to read
+function barChartArr(arr){
+  // Connfigure the headings of the chart
+  let headingsArr=[["Option/Season", "£/W", {role:"style"}]];
+  for(i=0; i<arr.length; i++){
+    headingsArr.push(["Option " + (i+1) + " Summer", parseFloat(arr[i][3]), "red"]);
+    headingsArr.push(["Option " + (i+1) + " Winter", parseFloat(arr[i][4]), "blue"]);
+  };
+  return headingsArr;
+};
+
+// Add the data back to the webpage
 function addOptionsToPage(customerData){
   htmlOutput=""
+
   for(i=0; i<customerData.length; i++){
+    let dischargeSummer=[];
+    let dischargeWinter=[];
     for(x=0;x<24;x++){
       // Make a new array and push the index as hours into it to display to the user
-      if(customerData[i][5][x]<75){
-        customerData[i][5].splice (customerData[i][5].indexOf([x]), 2);
-      }
-      else {
-        customerData[i][5][x]=customerData[i][5][x]+":00";
+      if(customerData[i][5][x]>75){
+        dischargeSummer.push(" "+[x]+":00 (" + customerData[i][5][x] + "%)");
+      };
+      if(customerData[i][6][x]>75){
+        dischargeWinter.push(" "+[x]+":00 (" + customerData[i][6][x] + "%)");
       };
     }
-    console.log(customerData[i][5]);
     // This is the output to display ont he page
-    output="<h3>Option " + (i+1) + "</h3>"
+    output="<div class='options'><h3>Option " + (i+1) + "</h3>"
     + "<p>1. Total expected power generation on the solstices at noon: " +customerData[i][0] + "W (summer)\t " + customerData[i][1] + "W (winter)</p>"
     + "<p>2. Total installation cost of this option : £" + customerData[0][2] + "</p>"
     + "<p>3. Total cost per watt as this rate : £/W " + customerData[0][3] + "W (summer)\t " + customerData[i][4] + "W (winter)</p>"
-    + "<p>4. Hours battery will be more than 75% discharged NEED TO CONVERT ARRAYS </p>" 
-    + "<p>5. Expected cost of telemetry on your system :" ;
+    + "<p>4. Hours battery will be more than 75% discharged:</p><p style='text-indent:10px'>  Summer: "+ dischargeSummer+ " </p><p style='text-indent:10px'>  Winter: " + dischargeWinter + "</p>" 
+    + "<p>5. Expected cost of telemetry on your system: </div>" ;
     htmlOutput+=output
   }
   $("#options-output").html(htmlOutput);
 };
 
-[
-  ["1494","964","1000","0.67","1.04",
-  ["12.10","24.20","36.30","48.40","41.21","29.54","12.65","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","12.10","24.20","36.30"]
-  ,["12.10","24.20","36.30","48.40","60.50","72.60","84.70","96.80","100.00","90.21","77.33","62.68","47.47","32.82","19.94","10.15","22.25","34.35","46.45","58.55","70.65","82.75","94.85","100.00"]
-  ]
-  ,["1449","750","1200","0.83","1.6"
-  ,["12.10","24.20","36.30","48.40","48.07","42.89","31.84","15.50","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","12.10","24.20","36.30"]
-  ,["12.10","24.20","36.30","48.40","60.50","72.60","84.70","96.80","100.00","96.87","90.34","81.83","72.68","64.18","57.65","54.52","66.62","78.72","90.82","100.00","100.00","100.00","100.00","100.00"]
-  ]
-]
+// Load chart for the customer portal
+function loadLineChart(chartArr){
+  google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable(chartArr);
+
+          var options = {
+            title: 'Battery Discharge',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+        }
+}
+
+// Load bar chart for customer portal
+function loadBarChart(barArr){
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      console.log(barArr);
+      var data = google.visualization.arrayToDataTable(barArr);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "£/W of Solar Panel Option",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+};
