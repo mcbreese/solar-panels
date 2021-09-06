@@ -18,17 +18,17 @@
 			<td colspan="2"><p><strong>Customer Registration Form</strong></p></td>
 		</tr>
 		<tr>
-			<td>First name:</td>
-			<td><input type="text" name="fname" maxlength="50" id="fname" /></td>
+			<td class="tooltip">First name:<span class="tooltiptext">Enter your first name.</span></td>
+			<td><input type="text" name="fname" maxlength="50" id="fname"  /></td>
 			<td><p>Max 50 characters</p></td>
 		</tr>
         <tr>
-			<td>Last name:</td>
+			<td class="tooltip">Last name:<span class="tooltiptext">Enter your last name.</span></td>
 			<td><input type="text" name="lname" maxlength="50" id="lname" /></td>
 			<td><p>Max 50 characters</p></td>
 		</tr>
 		<tr>
-			<td>Password:</td>
+			<td class="tooltip">Password:<span class="tooltiptext">Enter a password that meets the requirements on the right.</span></td>
 			<td><input type="password" name="password1" id="password1" /></td>
 			<td><p>The password must be: 
 				<ul>
@@ -39,20 +39,20 @@
 			</p></td>
 		</tr>
 		<tr>
-			<td>Confirm Password:</td>
+			<td class="tooltip">Confirm Password:<span class="tooltiptext">Enter the same password.</span></td>
 			<td><input type="password" name="password2" id="password2" /></td>
 		</tr>
 		<tr>
-			<td>Email:</td>
+			<td class="tooltip">Email:<span class="tooltiptext">Enter your email address.</span></td>
 			<td><input type="text" name="email" id="email" /></td>
 		</tr>
         <tr>
-			<td>Postcode:</td>
+			<td class="tooltip">Postcode:<span class="tooltiptext">Enter your postcode.</span></td>
 			<td><input type="text" name="postcode" id="postcode" /></td>
 			<td><p>Postcode will help us determine the sun angle for our power calculations</p></td>
 		</tr>
         <tr>
-			<td>Budget:</td>
+			<td class="tooltip">Budget:<span class="tooltiptext">Enter your installation budget.</span></td>
 			<td><input type="number" name="budget" id="budget" /></td>
 			<td><p>Provide us your budget and we'll help you evaluate your solar options based on the costs</p></td>
 		</tr>
@@ -65,7 +65,7 @@
 	<!--Adds loader class on successful insert top demonstrate page load-->
 	<div id="loading" class=""></div>
 	<br>
-	<a style="color:black" href="http://localhost/solar-panels/login.html">Already have an account? Sign in</a>
+	<a style="color:blue" href="http://localhost/solar-panels/login.html">Already have an account? Sign in</a>
 </form>
 </body>
 </html>

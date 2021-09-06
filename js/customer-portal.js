@@ -117,17 +117,22 @@ function returnData(customerID) {
     },
     async: false
   }).responseText;
-  returnData=JSON.parse(returnData);
-  //If the session is empty then redirect the customer to the login screen
-  if(!returnData){
-     alert("The system administrators have not configured and quotes for your account yet!");
-  }
-  else{
+
+  // Try catch because if no data is returned the script will error
+  try{
+    returnData=JSON.parse(returnData);
     console.log("============================================");
     console.log("Test Success - Customer details returned");
     console.log("============================================");
     return returnData;
-  };
+  }
+  catch(err){
+    // Change the page if there is no data configured yet
+    $(".main-body").html("<div style='margin-left:20px;'>"
+                        +"<h1>SOLAR CONFIGURATIONS</h1>"
+                        +"<p>No potential solar panel system have been configured for your home yet.</p>"
+                        +"<p>Please return to this page later.</p>");
+  }
 }
 
   function find75Discharge(arr){

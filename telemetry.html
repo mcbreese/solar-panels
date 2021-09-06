@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+
+<html xmlns=http://www.w3.org/1999/xhtml>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js\power-gen.js"></script>
+    <link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
+    <title>Telemetry</title>
+
+  </head>
+
+
+
+  <body class="">
+    <div class="flex-row " style="height:175vh;">
+    <div class="header" id="left-side">
+        <nav class="">
+<h2>Main <br/>Components</h2>
+<div class="flex-col nav-buttons">
+
+<button disabled class="navbar ">
+<a style="color:black" href="power-gen.html">Power Generation</a>
+</button>
+
+
+<button disabled class="navbar ">
+    <a style="color:black" href="battery-power.html">Battery Power</a>
+</button>
+<button class="navbar highlighted">
+    <a  href="telemetry.html">Telemetry</a>
+</button class="navbar">
+<button class="navbar highlighted" style="margin-top:10px;"><a href="power-gen.html">Next</a></button>
+      </div>
+        </nav>
+      
+    </div>
+    <div class="main-body">
+      <div class="flex-row">
+        
+    <form name=" " onsubmit="return false" style="margin-left: 10px;">
+<br>
+      <table width="510" border="0">
+
+        <tr>
+
+          <td colspan="2">
+            <h2><strong>Telemetry</strong></h2>
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td class="tooltip">OBC Size (GB):<span class="tooltiptext">Enter the size of the on board computer in GB.</span></td>
+
+          <td ><input type="number" placeholder="2" value="2" name="obc" id="obc" /></td>
+
+        </tr>
+        <tr>
+
+
+
+          <td><input type="submit" value="Submit" id="submit" /></td>
+
+        </tr>
+
+      </table>
+    <p>Click <strong>next</strong> to start a new configuration in power generation</p>
+    </form>
+
+    <div>
+      <h2>Breakdown:</h2>
+      <p><strong>1. The size of the on board computer sets how often the device would need servicing by the company when the storage is full of log files</strong></p>
+    </div>
+    </div>
+    </div>
+    </div>
+  </body>
+
+</html>

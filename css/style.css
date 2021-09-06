@@ -55,6 +55,7 @@ a:visited{
 }
 .main-body{
     width: 75%;
+
 }
 .flex-row{
     display: flex;
@@ -86,7 +87,7 @@ a:visited{
    bottom:0;
    width:100%;
    margin-bottom: 0;
-   margin-left:20px;
+   border-top: solid grey;
 }
 #reg-form{
     margin:auto;
@@ -95,4 +96,55 @@ a:visited{
 }
 #reg-table{
     margin: auto;
+}
+.scrollable{
+    overflow-x:auto;
+}
+
+/*Tooltip formatting*/
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+}
+
+/* Tooltip text */
+ .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

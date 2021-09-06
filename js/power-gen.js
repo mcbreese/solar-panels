@@ -1,4 +1,7 @@
-
+// Struggled with JS promises so using global variables as a hack
+var sunAngleSummer;
+var sunAngleWinter;
+var dateTimeString;
 
 $(document).ready(function(){
   $("#submit").click(() => {
@@ -7,6 +10,7 @@ $(document).ready(function(){
       // Assign the postcode value to a variable for the API call
       var custPostcode = getCustomerPostCode($("#customer").val());
       custPostcode.trim;
+      console.log("The customer postcode = " + custPostcode);
       // Test the page has all of the required information
       if (emptyFields()){
         // Assign the variables from the field
@@ -19,10 +23,10 @@ $(document).ready(function(){
         var roofAngle=parseInt($("#roofAngle").val());
         // Assign the variables with the calculation outputs
         let MTotal = generateInstallCost(area,cost);
-        let elevationSunSummer=generateElevationAngleSunRoof(roofAngle,'summer');
-        let elevationSunWinter=generateElevationAngleSunRoof(roofAngle,'winter');
-        let PPanelSummer = Math.round(generatePowerOfPanel(efficiency,1000,area,'summer', roofAngle, temperature));
-        let PPanelWinter = Math.round(generatePowerOfPanel(efficiency,1000,area, 'winter', roofAngle, temperature));
+        let elevationSunSummer=generateElevationAngleSunRoof(roofAngle,'summer', custPostcode);
+        let elevationSunWinter=generateElevationAngleSunRoof(roofAngle,'winter', custPostcode);
+        let PPanelSummer = Math.round(generatePowerOfPanel(efficiency,1000,area,'summer', roofAngle, temperature, custPostcode));
+        let PPanelWinter = Math.round(generatePowerOfPanel(efficiency,1000,area, 'winter', roofAngle, temperature, custPostcode));
         let powerCostSummer = generatePowerCost(PPanelSummer, MTotal);
         let powerCostWinter = generatePowerCost(PPanelWinter, MTotal);
         // Prepare the HTML which will be output on the page
@@ -101,13 +105,35 @@ function getCustomerPostCode(id){
 
 }
 
+// Attempt to get the api working, it's restrictive as can only get 2 weeks data
 function angleOfSun(postcode, season){
-// Fetch angle of sun on the roof from postcode lon lat
-// run lat lon to api to get roof angle midday
-// Eroof is either 25 or 40
-// Esun is either 60 or 15 (summer and winter respectively)
-// Intialise the variable
+    // Can't access season variable
+    if(season=='summer'){
+      dateTimeString="2021-09-10T12:00:00Z--2021-09-10T12:00:00Z";
+    }if (season =='winter'){
+      dateTimeString="2021-12-21T12:00:00Z--2021-12-21T12:00:00Z";
+    };
+    console.log(season);
 
+    // Fetch latitude and longitude co-oridnates from an API
+    fetch('http://api.getthedata.com/postcode/'+postcode).then(response => response.json()).then((data) => {
+      latLon= [data.data.latitude,data.data.longitude];
+    // Trial account for meteomatics, access the sun elevation angle at noon for it
+    const credentials = btoa('uwebristol_breese:BmL3oUT7q8wPz');
+    fetch('https://api.meteomatics.com/'+dateTimeString+':PT1H/sun_elevation:d/'+latLon[0]+','+latLon[1]+'/json', {method:'get', headers: {'Content-Type': 'application/json', 'Authorization': 'basic ' + credentials}}).then(response => response.json())
+    .then((data) => {
+                      let sunElev=data.data[0].coordinates[0].dates[0].value
+                          console.log(dateTimeString);
+                      console.log("Sun Elevation =" + sunElev);
+                      // Assign to the global variable
+                      if(dateTimeString==="2021-09-10T12:00:00Z--2021-09-10T12:00:00Z"){
+                        sunAngleSummer=sunElev;
+                      }if (dateTimeString ==="2021-12-21T12:00:00Z--2021-12-21T12:00:00Z"){
+                        sunAngleWinter=sunElev;
+                      };
+                      
+                      });
+    });
 }
 
 function coefficient(temperature, efficiency){
@@ -121,24 +147,32 @@ let reducedEff=(efficiency/100)*coefficient;
 return efficiency-reducedEff;
 }
 
-function generateElevationAngleSunRoof(roofAngle,season){
+function generateElevationAngleSunRoof(roofAngle,season,postcode){
+// Get the angle of the sun at noon for that co-ordinate
+//angleOfSun(postcode, season);
+//console.log("Global Summer Angle = " + sunAngleSummer);
+//console.log("Global Winter Angle = " + sunAngleWinter);
 let ESunRoof;
 if (season=='summer'){
+  // Field input plus API call (albeit from September due to limitations of trial account)
+  //ESunRoof=roofAngle+sunAngleSummer;
   ESunRoof=roofAngle+60;
 } else if (season=='winter'){
+  // Field input plus API call
+  //ESunRoof=roofAngle+sunAngleWinter;
   ESunRoof=roofAngle+15;
 }
 return ESunRoof
 }
 
-function generatePowerOfPanel(efficiency, power, area, season, roofAngle, temperature){
+function generatePowerOfPanel(efficiency, power, area, season, roofAngle, temperature, postcode){
 
 // Only run if temperature is above 25 as thats when efficiency decreases
 if(temperature>=25){
   efficiency=coefficient(temperature, efficiency);
 }
 // Generates Power Output
-ESunRoof=generateElevationAngleSunRoof(roofAngle,season);
+ESunRoof=generateElevationAngleSunRoof(roofAngle,season, postcode);
 // Convert to degrees because default math.sin uses radian https://dirask.com/posts/JavaScript-Math-sin-in-degrees-Z1AwNp
 ESunRoof= (Math.PI / 180) * ESunRoof;
 let PPanel = efficiency * power * area * Math.sin(ESunRoof);
@@ -180,8 +214,5 @@ function saveToDatabase(customer, roofAngle, efficiency, temperature, area, cost
   if(runInsert=="N"){
     console.log("Error Inserting Query into Database!");
     alert ("Error Inserting into Database, seek system administrator!");
-  }
-  else{
-    // Feedback to the people that it has worked?
   }
 };
