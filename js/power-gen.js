@@ -105,7 +105,8 @@ function getCustomerPostCode(id){
 
 }
 
-// Attempt to get the api working, it's restrictive as can only get 2 weeks data
+// Attempt to get the api working, it's restrictive as can only get 2 weeks data. 
+// Only current fix I can think of is duplicate the function and hard code summer and winter and call it from the generateElevationAngleSunRoof function
 function angleOfSun(postcode, season){
     // Can't access season variable
     if(season=='summer'){
