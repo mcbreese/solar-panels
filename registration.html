@@ -1,71 +1,74 @@
 <!--https://www.sourcecodester.com/tutorials/php/9456/how-create-secure-registration-page-phpmysql-part-i.html-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js\register.js"></script>
-<script type="text/javascript" src="js\register.test.js"></script>
-<link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
-<title>Register</title>
-</head>
- 
-<body id="reg-form" class="">
-	<h1>SOLAR PANEL LTD</h1>
-<form name="register" onsubmit="return false" class="">
-	<table width="510" border="0" class="" id="reg-table">
-		<tr>
-			<td colspan="2"><p><strong>Customer Registration Form</strong></p></td>
-		</tr>
-		<tr>
-			<td class="tooltip">First name:<span class="tooltiptext">Enter your first name.</span></td>
-			<td><input type="text" name="fname" maxlength="50" id="fname"  /></td>
-			<td><p>Max 50 characters</p></td>
-		</tr>
-        <tr>
-			<td class="tooltip">Last name:<span class="tooltiptext">Enter your last name.</span></td>
-			<td><input type="text" name="lname" maxlength="50" id="lname" /></td>
-			<td><p>Max 50 characters</p></td>
-		</tr>
-		<tr>
-			<td class="tooltip">Password:<span class="tooltiptext">Enter a password that meets the requirements on the right.</span></td>
-			<td><input type="password" name="password1" id="password1" /></td>
-			<td><p>The password must be: 
-				<ul>
-					<li>7 to 15 characters</li>
-					<li>1 numeric digit</li>
-					<li>1 special character</li>
-				</ul> 
-			</p></td>
-		</tr>
-		<tr>
-			<td class="tooltip">Confirm Password:<span class="tooltiptext">Enter the same password.</span></td>
-			<td><input type="password" name="password2" id="password2" /></td>
-		</tr>
-		<tr>
-			<td class="tooltip">Email:<span class="tooltiptext">Enter your email address.</span></td>
-			<td><input type="text" name="email" id="email" /></td>
-		</tr>
-        <tr>
-			<td class="tooltip">Postcode:<span class="tooltiptext">Enter your postcode.</span></td>
-			<td><input type="text" name="postcode" id="postcode" /></td>
-			<td><p>Postcode will help us determine the sun angle for our power calculations</p></td>
-		</tr>
-        <tr>
-			<td class="tooltip">Budget:<span class="tooltiptext">Enter your installation budget.</span></td>
-			<td><input type="number" name="budget" id="budget" /></td>
-			<td><p>Provide us your budget and we'll help you evaluate your solar options based on the costs</p></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td><input type="submit" value="Register" id="submit" /></td>
-		</tr>
-	</table>
-	<div id="error-area" class=""></div>
-	<!--Adds loader class on successful insert top demonstrate page load-->
-	<div id="loading" class=""></div>
-	<br>
-	<a style="color:blue" href="http://localhost/solar-panels/login.html">Already have an account? Sign in</a>
-</form>
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="js\register.js"></script>
+        <script type="text/javascript" src="js\register.test.js"></script>
+        <link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
+        <title>Register</title>
+    </head>
+
+    <body id="reg-form" class="">
+        <h1>SOLAR PANEL LTD</h1>
+        <form name="register" onsubmit="return false" class="">
+            <table width="510" border="0" class="" id="reg-table">
+                <tr>
+                    <td colspan="2">
+                        <p><strong>Customer Registration Form</strong></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tooltip">First name:<span class="tooltiptext">Enter your first name.</span></td>
+                    <td><input type="text" name="fname" maxlength="50" id="fname" /></td>
+                    <td><p>Max 50 characters</p></td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Last name:<span class="tooltiptext">Enter your last name.</span></td>
+                    <td><input type="text" name="lname" maxlength="50" id="lname" /></td>
+                    <td><p>Max 50 characters</p></td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Password:<span class="tooltiptext">Enter a password that meets the requirements on the right.</span></td>
+                    <td><input type="password" name="password1" id="password1" /></td>
+                    <td>
+                        <p>The password must be:</p>
+                        <ul>
+                            <li>7 to 15 characters</li>
+                            <li>1 numeric digit</li>
+                            <li>1 special character</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Confirm Password:<span class="tooltiptext">Enter the same password.</span></td>
+                    <td><input type="password" name="password2" id="password2" /></td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Email:<span class="tooltiptext">Enter your email address.</span></td>
+                    <td><input type="text" name="email" id="email" /></td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Postcode:<span class="tooltiptext">Enter your postcode.</span></td>
+                    <td><input type="text" name="postcode" id="postcode" /></td>
+                    <td><p>Postcode will help us determine the sun angle for our power calculations</p></td>
+                </tr>
+                <tr>
+                    <td class="tooltip">Budget:<span class="tooltiptext">Enter your installation budget.</span></td>
+                    <td><input type="number" name="budget" id="budget" /></td>
+                    <td><p>Provide us your budget and we'll help you evaluate your solar options based on the costs</p></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Register" id="submit" /></td>
+                </tr>
+            </table>
+            <div id="error-area" class=""></div>
+            <!--Adds loader class on successful insert top demonstrate page load-->
+            <div id="loading" class=""></div>
+            <br />
+            <a style="color: blue;" href="http://localhost/solar-panels/login.html">Already have an account? Sign in</a>
+        </form>
+    </body>
 </html>

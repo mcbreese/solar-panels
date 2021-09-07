@@ -19,17 +19,17 @@ $powerCostWinter = $_POST['powerCostWinter'];
 
 // Get the next configID to use in script
 $sql = "select max(configID) + 1 AS 'configID' from powergeneration;";
-$resultSet = mysqli_query($conn,$sql);
+$resultSet = mysqli_query($conn, $sql);
 $configID = mysqli_fetch_assoc($resultSet);
-$configID=$configID["configID"];
+$configID = $configID["configID"];
 
 $sql = "INSERT INTO powergeneration (configID, employeeID, customerID, roofAngle, solarEfficiency, temperature, roofArea, panelCost, sunPower, elevationAngleSummer, elevationAngleWinter, panelPowerSummer, panelPowerWinter, installCost, powerCostSummer, powerCostWinter)
         VALUES ( '$configID', 1, '$id', '$roofAngle', '$efficiency', '$temperature', '$area','$cost',1000, '$elevationSunSummer','$elevationSunWinter', '$PPanelSummer','$PPanelWinter','$MTotal','$powerCostSummer','$powerCostWinter');";
 
 # Values are now inserted into the database, start a session so the next page has the customer details
 session_start();
-$_SESSION["user_id"]=$id;
-$_SESSION["config_id"]=$configID;
+$_SESSION["user_id"] = $id;
+$_SESSION["config_id"] = $configID;
 
 // Run the insert
 mysqli_query($conn, $sql);

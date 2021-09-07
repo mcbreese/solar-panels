@@ -2,71 +2,60 @@
 
 <html xmlns=http://www.w3.org/1999/xhtml>
 
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js\power-gen.js"></script>
     <link rel="stylesheet" href="css\style.css?version=1" type="text/css" />
     <title>Power Generation</title>
+</head>
 
-  </head>
+<body class="">
+    <div class="flex-row" style="height: 175vh;">
+        <div class="header" id="left-side">
+            <nav class="">
+                <h2>
+                    Main <br />
+                    Components
+                </h2>
+                <div class="flex-col nav-buttons">
+                    <button class="navbar highlighted">
+                        <a href="power-gen.html">Power Generation</a>
+                    </button>
 
+                    <button disabled class="navbar">
+                        <a style="color: black;" href="battery-power.html">Battery Power</a>
+                    </button>
+                    <button disabled class="navbar">
+                        <a style="color: black;" href="telemetry.html">Telemetry</a>
+                    </button>
+                    <button class="navbar highlighted" style="margin-top: 10px;"><a href="battery-power.html">Next</a></button>
+                </div>
+            </nav>
+        </div>
+        <div class="main-body">
+            <div class="flex-row">
+                <form name=" " onsubmit="return false">
+                    <br />
+                    <table width="510" border="0">
+                        <tr>
+                            <td colspan="2">
+                                <h2><strong>Power Generation</strong></h2>
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td class="tooltip">Customer No:<span class="tooltiptext">Enter the customer number (Check DB, usability of this field was missed).</span></td>
 
-  <body class="">
-    <div class="flex-row " style="height:175vh;">
-    <div class="header" id="left-side">
-        <nav class="">
-<h2>Main <br/>Components</h2>
-<div class="flex-col nav-buttons">
+                            <td><input type="number" placeholder="0000" name="Customer No" id="customer" /></td>
+                        </tr>
 
-<button class="navbar highlighted">
-<a href="power-gen.html">Power Generation</a>
-</button>
+                        <tr>
+                            <td class="tooltip">Roof Angle<span>&#176;</span>: <span class="tooltiptext">Enter the customers roof angle.</span></td>
 
-
-<button disabled class="navbar ">
-    <a style="color:black" href="battery-power.html">Battery Power</a>
-</button>
-<button disabled class="navbar">
-    <a style="color:black" href="telemetry.html">Telemetry</a>
-</button class="navbar">
-<button class="navbar highlighted" style="margin-top:10px;"><a href="battery-power.html">Next</a></button>
-      </div>
-        </nav>
-      
-    </div>
-    <div class="main-body">
-      <div class="flex-row">
-        
-    <form name=" " onsubmit="return false">
-<br>
-      <table width="510" border="0">
-
-        <tr>
-
-          <td colspan="2">
-            <h2><strong>Power Generation</strong></h2>
-          </td>
-
-        </tr>
-
-        <tr>
-
-          <td class="tooltip">Customer No:<span class="tooltiptext">Enter the customer number (Check DB, usability of this field was missed).</span></td>
-
-          <td ><input type="number" placeholder="0000" name="Customer No" id="customer" /></td>
-
-        </tr>
-
-        <tr>
-
-          <td class="tooltip">Roof Angle<span>&#176;</span>: <span class="tooltiptext">Enter the customers roof angle.</span></td>
-
-          <td><input type="number" placeholder="25" name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
-
-        </tr>
-        <!--
+                            <td><input type="number" placeholder="25" name="Roof Angle" min="0" max="90" id="roofAngle" /></td>
+                        </tr>
+                        <!--
           Comes from the API or hard coded
         <tr>
 
@@ -77,82 +66,72 @@
         </tr>
         -->
 
+                        <tr>
+                            <td class="tooltip">
+                                Choose a solar panel type:
+                                <span class="tooltiptext">
+                                    Monocrystalline efficiency: 15%<br />
+                                    Polycrystalline efficiency: 12% <br />
+                                    Silicon efficiency: 6%
+                                </span>
+                            </td>
 
-        <tr>
+                            <td>
+                                <label for="panelType"></label>
+                                <select name="panelType" id="panelType">
+                                    <option value="0.15">Monocrystalline</option>
+                                    <option value="0.12">Polycrystalline</option>
+                                    <option value="0.6">Amorphous Silicon</option>
+                                </select>
+                            </td>
+                        </tr>
 
-          <td class="tooltip">Choose a solar panel type: <span class="tooltiptext">Monocrystalline efficiency: 15%<br>Polycrystalline efficiency: 12% <br> Silicon efficiency: 6%</span></td>
+                        <tr>
+                            <td class="tooltip">Temperature<span>&#176;</span>C:<span class="tooltiptext">Enter the average temperature in summer,if over 25 degrees the efficiency of the panels reduces</span></td>
 
-          <td>
-            <label for="panelType"></label>
-            <select name="panelType" id="panelType">
-              <option value="0.15">Monocrystalline</option>
-              <option value="0.12">Polycrystalline</option>
-              <option value="0.6">Amorphous Silicon</option>
-            </select>
-          </td>
+                            <td class="tooltip"><input type="number" placeholder="25" name="Temperature" id="temperature" /></td>
+                        </tr>
 
-        </tr>
+                        <tr>
+                            <td class="tooltip">Area <span>&#13217;</span>:<span class="tooltiptext">Enter the amount of area on the roof the panels will use.</span></td>
 
-        <tr>
+                            <td><input type="number" placeholder="0" name="Area" id="area" /></td>
+                        </tr>
 
-          <td class="tooltip">Temperature<span>&#176;</span>C:<span class="tooltiptext">Enter the average temperature in summer,if over 25 degrees the efficiency of the panels reduces</span></td>
+                        <tr>
+                            <td class="tooltip">Cost (£/<span>&#13217;</span>):<span class="tooltiptext">Enter the cost per solar panel</span></td>
 
-          <td class="tooltip"><input type="number" placeholder="25" name="Temperature" id="temperature" /></td>
+                            <td><input type="number" placeholder="&pound;0" name="Cost" id="cost" /></td>
+                        </tr>
 
-        </tr>
-
-        <tr>
-
-          <td class="tooltip">Area <span>&#13217;</span>:<span class="tooltiptext">Enter the amount of area on the roof the panels will use.</span></td>
-
-          <td><input type="number" placeholder="0" name="Area" id="area" /></td>
-
-        </tr>
-
-        <tr>
-
-          <td class="tooltip">Cost (£/<span>&#13217;</span>):<span class="tooltiptext">Enter the cost per solar panel</span></td>
-
-          <td><input type="number" placeholder="&pound;0" name="Cost" id="cost" /></td>
-
-        </tr>
-
-        <tr>
-
-
-
-          <td><input type="submit" value="Submit" id="submit" /></td>
-
-        </tr>
-
-      </table>
-
-    </form>
-    <div>
-      <h2>Breakdown:</h2>
-      <p><strong>1. To calculate the elevation angle of the sun on the solar panel:</strong></p>
-      <p>roof angle + sun angle</p>
-      <p><strong>2. The total power generated by the solar panel:</strong> </p>
-      <p>efficiency x sun power (1000) x roof area x sin(roof angle + sun angle)</p>
-      <p><strong>3. Total installation cost of solar panel:</strong></p>
-      <p>roof area * cost</p>
-      <p><strong>4. Total cost of power generated:</strong> </p>
-      <p>total cost / power generated</p>
+                        <tr>
+                            <td><input type="submit" value="Submit" id="submit" /></td>
+                        </tr>
+                    </table>
+                </form>
+                <div>
+                    <h2>Breakdown:</h2>
+                    <p><strong>1. To calculate the elevation angle of the sun on the solar panel:</strong></p>
+                    <p>roof angle + sun angle</p>
+                    <p><strong>2. The total power generated by the solar panel:</strong></p>
+                    <p>efficiency x sun power (1000) x roof area x sin(roof angle + sun angle)</p>
+                    <p><strong>3. Total installation cost of solar panel:</strong></p>
+                    <p>roof area * cost</p>
+                    <p><strong>4. Total cost of power generated:</strong></p>
+                    <p>total cost / power generated</p>
+                </div>
+            </div>
+            <div class="flex-row text-left">
+                <div id="summerOutput" style="margin-right: 5px;"></div>
+                <br />
+                <div id="summerOutputBreakdown" style="margin-left: 5px;"></div>
+            </div>
+            <br />
+            <div class="flex-row text-left">
+                <div id="winterOutput" style="margin-right: 5px;"></div>
+                <br />
+                <div id="winterOutputBreakdown" style="margin-left: 5px;"></div>
+            </div>
+        </div>
     </div>
-    </div>
-    <div class="flex-row text-left">
-        <div id="summerOutput" style="margin-right:5px;"></div>
-        <br>
-        <div id="summerOutputBreakdown" style="margin-left:5px;"></div>
-    </div>
-    <br>
-    <div class="flex-row text-left">
-    <div id="winterOutput" style="margin-right:5px;"></div>
-    <br>
-    <div id="winterOutputBreakdown" style="margin-left:5px;"></div>
-    </div>
-    </div>
-    </div>
-  </body>
-
-</html>
+</body>

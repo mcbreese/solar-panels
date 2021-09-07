@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+$(document).ready(function () {
     // Test the session from the previous page power generation, if successful we will have the data we need
     var dataArr = checkSession();
 
@@ -11,7 +10,7 @@ $(document).ready(function() {
             // Database values required:
             var area = dataArr[0]; // metre squared
             var elevationAngle = dataArr[1]; // Degrees
-            var efficiency = dataArr[2] // %
+            var efficiency = dataArr[2]; // %
 
             console.log("Roof area from database = " + area);
             console.log("Elevation angle from database = " + elevationAngle);
@@ -42,7 +41,32 @@ $(document).ready(function() {
             // Run once for summer angles
             var summerArr = twentyFourHoursCharge(battCap, battVoltage, efficiency, power, area, batteryEfficiency, pdmEfficiency, watts, sunAngleSummer);
             var winterArr = twentyFourHoursCharge(battCap, battVoltage, efficiency, power, area, batteryEfficiency, pdmEfficiency, watts, sunAngleWinter);
-            var timeArr = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', ]
+            var timeArr = [
+                "00:00",
+                "01:00",
+                "02:00",
+                "03:00",
+                "04:00",
+                "05:00",
+                "06:00",
+                "07:00",
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+                "18:00",
+                "19:00",
+                "20:00",
+                "21:00",
+                "22:00",
+                "23:00",
+            ];
             loadChart(chartArr(summerArr, winterArr, timeArr));
             // Find if at any point the battery becomes more than 75% discharged
             var summerOutput = find75Discharge(summerArr);
@@ -59,12 +83,11 @@ $(document).ready(function() {
                 $("#winterOutput").html(winterOutputHTML);
             } else {
                 $("#winterOutput").html("<h2>Output:</h2><p style='text-decoration:underline'>Winter Solstice</p> <br/> The battery will not discharge more than 75% on the winter solstice!");
-            };
-
+            }
         } else {
             alert("Required values are missing!");
         }
-        $("#submit").prop('disabled', true);
+        $("#submit").prop("disabled", true);
         saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVoltage, summerArr, winterArr);
         // Then we need to save into the database
     });
@@ -75,20 +98,20 @@ $(document).ready(function() {
 function checkSession() {
     var checkSession = $.ajax({
         url: "resources/php/battery-power.php",
-        type: 'post',
+        type: "post",
         data: {
-            data: 'data'
+            data: "data",
         },
-        async: false
+        async: false,
     }).responseText;
 
     if (checkSession == "error") {
-        alert("The session from the previous page has been lost, please begin the power generation process again")
+        alert("The session from the previous page has been lost, please begin the power generation process again");
     } else {
         // Parse the data as JSON array as it returns as a string otherwise
         return JSON.parse(checkSession);
     }
-};
+}
 
 function emptyFields() {
     if (!$("#battery-efficiency").val()) {
@@ -109,14 +132,12 @@ function emptyFields() {
         console.log("SUCCESS - All fields filled successfully");
         return true;
     }
-};
-
-
+}
 
 // Sets up data for the Google chart
 function loadChart(chartArr) {
-    google.charts.load('current', {
-        'packages': ['corechart']
+    google.charts.load("current", {
+        packages: ["corechart"],
     });
     google.charts.setOnLoadCallback(drawChart);
 
@@ -124,19 +145,19 @@ function loadChart(chartArr) {
         var data = google.visualization.arrayToDataTable(chartArr);
 
         var options = {
-            title: 'Battery Discharge',
+            title: "Battery Discharge",
             hAxis: {
-                title: 'Hour of Day',
+                title: "Hour of Day",
             },
             vAxis: {
-                title: '% Discharge',
+                title: "% Discharge",
             },
             legend: {
-                position: 'bottom'
-            }
+                position: "bottom",
+            },
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById("curve_chart"));
 
         chart.draw(data, options);
     }
@@ -148,20 +169,17 @@ function find75Discharge(arr) {
         if (arr[i] >= 75) {
             dischargeTimes.push(" " + i + ":00");
         }
-
     }
     return dischargeTimes;
-};
+}
 
 function chartArr(summerArr, winterArr, timeArr) {
-    var chartArr = [
-        ["Time", "Summer", "Winter"]
-    ];
+    var chartArr = [["Time", "Summer", "Winter"]];
     for (i = 0; i < 24; i++) {
         chartArr.push([timeArr[i], parseFloat(summerArr[i]), parseFloat(winterArr[i])]);
     }
     return chartArr;
-};
+}
 
 // Elevation angles
 function angleOfSun(sunAngle, elevationAngle) {
@@ -188,35 +206,34 @@ function generateBCMOutput(solarEfficiency, power, area, batteryEfficiency, elev
     //console.log("The Battery Charge Module (BCM) that manages the power generated by the solar panel is outputting = " + bcmOutput + " Watts");
 
     return bcmOutput;
-};
+}
 
 // Power Distribuion Efficiency is 0.9, the watts is 300
 // PDM disitributes power to the house
 function generateBaseLoad(watts, pdmEfficiency) {
     watts += 30; // Add 30W for the equipment - describe on webpage
-    let baseLoad = watts + ((1 - pdmEfficiency) * watts);
+    let baseLoad = watts + (1 - pdmEfficiency) * watts;
     // Watts always 330 then
     // The lower efficiency of the PDM increases the base load
     //console.log("PDM Efficiency = "+ pdmEfficiency);
     return baseLoad;
-};
+}
 
 // This function shows what the battery charge module is currently outputting minus the base load of the house, whats left is the power balance and will go into the battery?
 function generatePowerBalance(bcmOutput, baseLoad) {
     let powerBalance = bcmOutput - baseLoad;
     return powerBalance;
-};
+}
 
 function instantaneousChargeDischarge(powerBalance, battVoltage) {
     let charge = powerBalance / battVoltage;
     return charge;
-
-};
+}
 
 function generateStateOfCharge(battCap, charge) {
     // Now I need to iterate
     // Batt charge of previous time step (begin at max which is 250A) + iCharge of current time step
-    // Initial battery charge = 
+    // Initial battery charge =
     //console.log("Battery capacity is " + battCap);
     if (battCap + charge <= 0) {
         return 0;
@@ -226,16 +243,14 @@ function generateStateOfCharge(battCap, charge) {
     } else {
         return battCap + charge;
     }
-};
+}
 
 function twentyFourHoursCharge(battCap, battVoltage, efficiency, power, area, batteryEfficiency, pdmEfficiency, watts, sunAngle) {
     let totalCap = battCap;
     let dischargeArr = [];
     for (i = 0; i < 24; i++) {
         // Generate the power balance which requires BCM Output and the base load
-        let powerBalance = generatePowerBalance(
-            generateBCMOutput(efficiency, power, area, batteryEfficiency, sunAngle[i]),
-            generateBaseLoad(watts, pdmEfficiency));
+        let powerBalance = generatePowerBalance(generateBCMOutput(efficiency, power, area, batteryEfficiency, sunAngle[i]), generateBaseLoad(watts, pdmEfficiency));
         //console.log("The BCM and PDM balance atm is " + powerBalance);
         // Then generate the charge with that power balance which is in Amps
         let charge = instantaneousChargeDischarge(powerBalance, battVoltage);
@@ -254,10 +269,9 @@ function twentyFourHoursCharge(battCap, battVoltage, efficiency, power, area, ba
 
 function generateSummerWinterDepth(battCharge, totalCap) {
     // ???
-    let discharge = (1 - (battCharge / totalCap)) * 100;
+    let discharge = (1 - battCharge / totalCap) * 100;
     return discharge;
-};
-
+}
 
 // Send data to PHP file to insert into battery power database
 function saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVoltage, summerArr, winterArr) {
@@ -265,7 +279,7 @@ function saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVo
     console.log("Inserting into Database");
     var runInsert = $.ajax({
         url: "resources/php/battery-powerInsert.php",
-        type: 'post',
+        type: "post",
         data: {
             watts: watts,
             batteryEfficiency: batteryEfficiency,
@@ -273,9 +287,9 @@ function saveToDatabase(watts, batteryEfficiency, pdmEfficiency, battCap, battVo
             battCap: battCap,
             battVoltage: battVoltage,
             summerArr: summerArr,
-            winterArr: winterArr
+            winterArr: winterArr,
         },
-        async: false
+        async: false,
     }).responseText;
     if (runInsert == "N") {
         console.log("Error Inserting Query into Database!");
