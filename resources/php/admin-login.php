@@ -25,6 +25,7 @@ if(@mysqli_num_rows($resultSet) > 0){
     and password = '$hashedPW' ";   
     $resultSet = mysqli_query($conn,$sql);
     // Check if the admin exists
+    echo $sql;
     if(@mysqli_num_rows($resultSet) > 0){
         $row = mysqli_fetch_assoc($resultSet);
         echo "Y";
