@@ -9,7 +9,7 @@ function checkPword(input){
 // To check a password between 7 to 15 characters which contain at least one numeric digit and a special character
 // https://w3resource.com/javascript/form/password-validation.php
 // Create regular expression to validate the password format
-const paswd=  new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/);
+const paswd=  new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]{7,15}$/);
 // If the password is empty fill it with data that will also fail
 if (!input) {input="fail"};
 if(paswd.test(input)) {  

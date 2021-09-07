@@ -56,8 +56,8 @@
 
           <td class="tooltip">Power Consumption (W)<span class="tooltiptext">Enter the constant power consumption of the house</span></td>
 
-          <td><input type="number" value="300" name="power-consumption" id="power-consumption" /></td>
-
+          <td><input type="number" placeholder="300" name="power-consumption" id="power-consumption" /></td>
+          <td><p>30W is added on top for the power demands of the components e.g. 300+30</p></td>
         </tr>
         <!--
         <tr>
@@ -72,7 +72,7 @@
 
           <td class="tooltip">Battery Efficiency (%):<span class="tooltiptext">Enter the efficiency of the battery for the potential system</span></td>
 
-          <td><input type="number" value="85" name="battery-efficiency" min="0" max="100" id="battery-efficiency" /></td>
+          <td><input type="number" name="battery-efficiency" min="0" max="100" placeholder="85" id="battery-efficiency" /></td>
 
         </tr>
 
@@ -80,7 +80,7 @@
 
           <td class="tooltip">Power Distribution Module Efficiency (%):<span class="tooltiptext">Enter the efficiency of the power distribution module for the potential system</span></td>
 
-          <td><input type="number" value="90" name="pdm-efficiency" min="0" max="100" id="pdm-efficiency" /></td>
+          <td><input type="number" name="pdm-efficiency" min="0" max="100" placeholder="90" id="pdm-efficiency" /></td>
 
         </tr>
 
@@ -88,7 +88,7 @@
 
           <td class="tooltip">Battery Capacity (A Hours):<span class="tooltiptext">Enter the battery capacity that will be used for the potential system</span></td>
 
-          <td><input type="number" value="250" name="battery-capacity" id="battery-capacity" /></td>
+          <td><input type="number" name="battery-capacity" placeholder="250" id="battery-capacity" /></td>
 
         </tr>
 
@@ -96,7 +96,7 @@
 
           <td class="tooltip">Battery Voltage (V):<span class="tooltiptext">Enter the voltage of the battery for the potential system</span></td>
 
-          <td><input type="number" value="12" name="battery-voltage" id="battery-voltage" /></td>
+          <td><input type="number" name="battery-voltage" placeholder="12" id="battery-voltage" /></td>
 
         </tr>
 
@@ -130,11 +130,11 @@
     </div>
     </div>
     <br>
-    <div class="flex-row text-left">
+    <div class="flex-row text-left" style="margin-left: 10px;;">
 
         <br><br>
-        <div id="summerOutput" style="margin-right:5px;"></div>
-        <div id="winterOutput" style="margin-left:5px;"></div>
+        <div id="summerOutput" style="margin-right:5px; width:40%;"></div>
+        <div id="winterOutput" style="margin-left:5px; width:40%;"></div>
     </div>
     
         <div id="chart-div">

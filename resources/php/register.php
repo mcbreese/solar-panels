@@ -1,8 +1,6 @@
 <?php
-$servername='localhost';
-$username='root';
-$password='';
-$dbname = "solar";
+// db.php includes our login credentials for the server
+include_once '..\db.php';
 # mysqli_connect opens connection to sql server, stored in variable here
 $conn=mysqli_connect($servername,$username,$password,"$dbname");
 # If connection is blank then error

@@ -6,8 +6,7 @@ include_once '..\db.php';
 $email = $_POST['email'];
 $pword = $_POST['pword'];
 
-// https://hzonesp.com/php/login-using-salt-hash-password-logout-php-mysql/
-//Check the email and password against the customer accounts
+//Check the email and password against the admin accounts
 $sql = "select * from admin where email = '$email';";
 $resultSet = mysqli_query($conn,$sql);
 // If there is a result then the account exists
@@ -22,18 +21,12 @@ if(@mysqli_num_rows($resultSet) > 0){
     // Use salt and password combination to return hashedPW, this should match the database if correct
     $hashedPW = hash('sha256', $saltedPW);
     $sql = "select * from admin where email = '$email' 
-    and password = '$hashedPW' ";   
+    and password = '$hashedPW'";  
     $resultSet = mysqli_query($conn,$sql);
-    // Check if the admin exists
-    echo $sql;
+    // Check if the admin exists otherwise return nothing
     if(@mysqli_num_rows($resultSet) > 0){
         $row = mysqli_fetch_assoc($resultSet);
         echo "Y";
-        // https://www.tutorialrepublic.com/php-tutorial/php-sessions.php
-        // Begin session and assign session variables
-    } else {
-    // The admin does not exist or the credentials are incorrect
-        echo "N";
-    };
+    } 
 }
 ?>

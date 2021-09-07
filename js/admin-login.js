@@ -51,15 +51,18 @@ function authLogin(email, pword){
     type: 'post',
     data: {
       email: email,
-      pword: pword,
+      pword: pword
     },
     async: false
   }).responseText;
-  if (runLogin=="N"){
-      $("#error").html("Incorrect login credentials, try again or register with us today.")
+  console.log(runLogin);
+  if (!runLogin){
+      $("#error").html("Incorrect login credentials, seek system administrator.")
   }
   else {
-      window.location.href = "http://localhost/solar-panels/power-gen.html";
+        setTimeout(function() {
+    window.location.href = "http://localhost/solar-panels/power-gen.html";
+    }, 1500);
   }
 
 };

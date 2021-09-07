@@ -55,7 +55,7 @@
 
           <td class="tooltip">Customer No:<span class="tooltiptext">Enter the customer number (Check DB, usability of this field was missed).</span></td>
 
-          <td ><input type="number" placeholder="0000" value="6" name="Customer No" id="customer" /></td>
+          <td ><input type="number" placeholder="0000" name="Customer No" id="customer" /></td>
 
         </tr>
 
@@ -63,17 +63,20 @@
 
           <td class="tooltip">Roof Angle<span>&#176;</span>: <span class="tooltiptext">Enter the customers roof angle.</span></td>
 
-          <td><input type="number" placeholder="0" value="25"  name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
+          <td><input type="number" placeholder="25" name="Roof Angle" min="0" max="90" id="roofAngle" /> </td>
 
         </tr>
-
+        <!--
+          Comes from the API or hard coded
         <tr>
 
           <td class="tooltip">Sun Angle<span>&#176;</span>:<span class="tooltiptext">Enter angle of sun (this field should have been fulfilled by API call)</span></td>
 
-          <td><input type="number" placeholder="0" value="60" name="Sun Angle" min="0" max="180" id="sunAngle" /></td>
+          <td><input type="number" placeholder="0" name="Sun Angle" min="0" max="180" id="sunAngle" /></td>
 
         </tr>
+        -->
+
 
         <tr>
 
@@ -94,7 +97,7 @@
 
           <td class="tooltip">Temperature<span>&#176;</span>C:<span class="tooltiptext">Enter the average temperature in summer,if over 25 degrees the efficiency of the panels reduces</span></td>
 
-          <td class="tooltip"><input type="number" placeholder="25" value="10"  name="Temperature" id="temperature" /></td>
+          <td class="tooltip"><input type="number" placeholder="25" name="Temperature" id="temperature" /></td>
 
         </tr>
 
@@ -102,7 +105,7 @@
 
           <td class="tooltip">Area <span>&#13217;</span>:<span class="tooltiptext">Enter the amount of area on the roof the panels will use.</span></td>
 
-          <td><input type="number" placeholder="0" value="10" name="Area" id="area" /></td>
+          <td><input type="number" placeholder="0" name="Area" id="area" /></td>
 
         </tr>
 
@@ -110,7 +113,7 @@
 
           <td class="tooltip">Cost (£/<span>&#13217;</span>):<span class="tooltiptext">Enter the cost per solar panel</span></td>
 
-          <td><input type="number" placeholder="&pound;0" value="120"  name="Cost" id="cost" /></td>
+          <td><input type="number" placeholder="&pound;0" name="Cost" id="cost" /></td>
 
         </tr>
 
