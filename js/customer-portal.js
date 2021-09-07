@@ -221,8 +221,15 @@ function loadLineChart(chartArr){
 
           var options = {
             title: 'Battery Discharge',
-            curveType: 'function',
-            legend: { position: 'bottom' }
+            hAxis: {
+                title: 'Hour of Day',
+            },
+            vAxis: {
+                title: '% Discharge',
+            },
+            legend: {
+                position: 'bottom'
+            }
           };
 
           var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -252,6 +259,9 @@ function loadBarChart(barArr){
         width: 900,
         height: 600,
         bar: {groupWidth: "95%"},
+        hAxis: {
+            title: 'Cost per Watt (£/W)',
+        },
         legend: { position: "none" },
       };
       var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
